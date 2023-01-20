@@ -1,0 +1,48 @@
+name: generate-implementation-configuration
+
+on:
+  repository_dispatch:
+    types: ["trigger-event"]
+
+# how to test this workflow
+
+# run: |
+# local id="962368b5c27b7ec5ecfcb4ed8f8c57adb52a8442"
+# curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" 
+#             -H "Accept: application/vnd.github.everest-preview+json" \ 
+#             -H "Content-Type: application/json" 
+#             https://api.github.com/repos/<github_username>/<repo_name>/dispatches \
+#             --data "{\"event_type\":\"trigger-event\",\"client_payload\":{\"id\":\"$id\", \"unit\":false,\"integration\":true}}"
+#             --data "{\"event_type\":\"trigger-event\",\"solace\":{\"asyncapi\":\"$asyncapi\"}}"
+
+env:
+  ID: ${{ github.event.client_payload.id }}
+  # COS: ${{ github.event.solace.cos }}
+  # QUEUE_NAME: ${{ github.event.solace.queueName }}
+  # ACCESS_TYPE: ${{ github.event.solace.accessType }}
+  # SUB: ${{ github.event.solace.sub }}
+  # SPEC: ${{ github.event.solace.asyncapi }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.2.0
+      - name: show context
+        run: |
+          echo "github sha is ${{ github.sha }}"
+          echo "github.event is ${{ toJson(github.event) }}"
+          echo "github.event_name is ${{ github.event_name }}"
+      - name: run build
+        if: github.event_name == 'repository_dispatch'
+        run: |
+          echo "id is $ID"
+          echo "integration is ${{ github.event.client_payload.integration }}"
+  show-id:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3.2.0
+      - name: show id
+        run: |
+          echo "id is $ID"
