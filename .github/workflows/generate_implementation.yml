@@ -43,7 +43,7 @@ jobs:
         run: |
           cd scripts
           npm install
-          node generate-implementation.js $SPEC
+          node generate_implementation.js $SPEC
 
   commit-implementation:
     runs-on: ubuntu-latest
