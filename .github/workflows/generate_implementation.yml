@@ -16,6 +16,8 @@
 # documentation.
 
 # To get started, configure the following in your repos secrets https://docs.github.com/en/actions/security-guides/encrypted-secrets
+# WORKFLOW_PAT: Personal Access Token token for the destination repo for authentication. See more here https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+## Note: The PAT should have workflow access enabled
 
 name: generate-implementation-configuration
 
@@ -50,3 +52,4 @@ jobs:
         with:
           commit_message: Added implementation files for the following queues ${{env.QUEUES}}
           file_pattern: 'implementation/*'
+          token: ${{ secrets.WORKFLOW_PAT }}
