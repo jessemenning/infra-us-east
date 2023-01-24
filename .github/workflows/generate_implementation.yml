@@ -44,13 +44,9 @@ jobs:
           cd scripts
           npm install
           node generate_implementation.js $SPEC
-          ls ../implementation
-          cat $GITHUB_ENV
 
-  commit-implementation:
-    runs-on: ubuntu-latest
-    needs: [generate-implementation]
-    steps:
-      - name: committing file back to repo
-        run: |
-          echo "File committed back to implementation directory!"
+      - name: Commit implementation files back to repo
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Added implementation files for the following queues ${{env.QUEUES}}
+          file_pattern: 'implementation/*'
