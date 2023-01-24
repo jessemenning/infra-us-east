@@ -46,7 +46,9 @@ function generate_template(binding) {
             template = template.replace('$QUEUE_ACCESSTYPE', `"${accessType}"`)
             template = template.replace('$QUEUE_SUBSCRIPTION', `"${subscriptions}"`)
             // Write new file
-            fs.writeFileSync(`../implementation/${queueName}-implementation.json`, template);
+            fs.writeFile(`../implementation/${queueName}-implementation.json`, template, function (err) {
+              if (err) throw err;
+            });
           });
         }
       }
