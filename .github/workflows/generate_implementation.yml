@@ -54,3 +54,4 @@ jobs:
         with:
           commit_message: Added implementation files for the following queues ${{env.QUEUES}}
           file_pattern: 'implementation/*'
+          commit_user_name: Solace Bot
