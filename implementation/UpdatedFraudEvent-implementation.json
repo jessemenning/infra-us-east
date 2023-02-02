@@ -11,7 +11,7 @@
    "deliveryDelay": 0,
    "egressEnabled": true,
    "subscriptions": [
-      "person/*/updated,person/*/deleted"
+      "person/*/updated,person/*/YOLO"
    ],
    "ingressEnabled": true,
    "maxMsgSpoolUsage": 5000,
